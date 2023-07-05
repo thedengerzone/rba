@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -66,7 +67,7 @@ public class UserServiceImpl implements UserService {
         CardInformation cardInformation;
         if (optionalCardInformation.isPresent()) {
             cardInformation = optionalCardInformation.get();
-            cardInformation.setStatus(true);
+            cardInformation.setLastModified(LocalDateTime.now());
         } else {
             cardInformation = new CardInformation();
             cardInformation.setOib(userRequest.getOib());
