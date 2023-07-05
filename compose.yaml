@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  RBA:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: rba
+    ports:
+      - "5432:5432"
+    volumes:
+      - db1-data:/var/lib/postgresql/data
+  redis:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+    hostname: localhost
+    network_mode: bridge
+    ports:
+      - 6379:6379/tcp
+volumes:
+  db1-data:
