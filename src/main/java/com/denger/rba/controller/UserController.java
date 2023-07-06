@@ -1,6 +1,7 @@
 package com.denger.rba.controller;
 
 import com.denger.rba.entity.user.User;
+import com.denger.rba.entity.user.UserRequest;
 import com.denger.rba.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,9 +49,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/card", method = POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource> generateUserInformationByOib(@RequestBody String oib) {
+    public ResponseEntity<Resource> generateUserInformationByOib(@RequestBody UserRequest request) {
         try {
-            File cardFile = userService.generate(oib);
+            File cardFile = userService.generate(request.getOib());
             if (cardFile != null) {
                 Resource resource = new FileSystemResource(cardFile);
                 return ResponseEntity.ok()
@@ -67,9 +68,9 @@ public class UserController {
 
 
     @RequestMapping(value = "/delete", method = POST)
-    public ResponseEntity<String> deleteUser(@RequestBody String oib) {
+    public ResponseEntity<String> deleteUser(@RequestBody UserRequest request) {
         try {
-            userService.deleteUser(oib);
+            userService.deleteUser(request.getOib());
             logger.info("Deletion request processed successfully");
             return ResponseEntity.ok("User successfully deleted");
         } catch (Exception e) {
