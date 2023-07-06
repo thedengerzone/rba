@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
         if (optionalCardInformation.isPresent()) {
             cardInformation = optionalCardInformation.get();
             cardInformation.setLastModified(LocalDateTime.now());
+            cardInformation.setStatus(true);
         } else {
             cardInformation = new CardInformation();
             cardInformation.setOib(userRequest.getOib());
